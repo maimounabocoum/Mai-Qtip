@@ -62,4 +62,43 @@ class alk_atom:
         for loop in range(0,self.N,1):
             KetList.append([self.L[loop],self.J[loop],self.F[loop],self.M[loop]])
         return [ i for (i,e) in enumerate(KetList) if e == Level ]
+    
+    def GetHPSTransitionStrength(self,J,F1,F2):# F1->F2 transition S_FF' factor in Steck
+            if J==0.5: # value for D1 line
+                if F2==4:
+                    if F1==4: # LEVEL FROM WHERE DECAY
+                        S=5/12 
+                    elif F1==3: # LEVEL FROM WHERE DECAY
+                        S=7/12 
+                elif F2==3:
+                    if F1==4: # LEVEL FROM WHERE DECAY
+                        S=3/4
+                    elif F1==3: # LEVEL FROM WHERE DECAY
+                        S=1/4 
+            elif J==1.5: # value for D1 line
+                if F2==4:
+                    if F1==2: # LEVEL FROM WHERE DECAY
+                        S=0 
+                    elif F1==3: # LEVEL FROM WHERE DECAY
+                        S=7/72 
+                    elif F1==4: # LEVEL FROM WHERE DECAY
+                        S=7/24
+                    if F1==5: # LEVEL FROM WHERE DECAY
+                        S=11/18 
+                elif F2==3:
+                    if F1==2: # LEVEL FROM WHERE DECAY
+                        S=5/14 
+                    elif F1==3: # LEVEL FROM WHERE DECAY
+                        S=3/8 
+                    elif F1==4: # LEVEL FROM WHERE DECAY
+                        S=15/56
+                    elif F1==5: # LEVEL FROM WHERE DECAY
+                        S=0  
+                    else:# error cast
+                        raise Exception("Sorry, wrong number!") 
+            
+            else:# error cast
+                raise Exception("Sorry, wrong number!") 
+            return S
+
 
