@@ -63,6 +63,21 @@ class alk_atom:
             KetList.append([self.L[loop],self.J[loop],self.F[loop],self.M[loop]])
         return [ i for (i,e) in enumerate(KetList) if e == Level ]
     
+    def GetHPSDipolarElement(self,L1,J1,F1,M1,L2,J2,F2,M2,q):
+        # transistion from (L1,J1,F1,M1) --> (L2,J2,F2,M2)
+        Iatom = 7/2
+        a = (-1)**(2*F2-1+M1+J1+1+Iatom)
+        b = np.sqrt((2*F1 + 1) *(2.0 *F2 + 1) * (2 *J1 + 1))*Wigner6j(J2,J1,1,F1,F2,Iatom)*Wigner3j(F1,1,F2,M1,q,-M2)
+
+        if abs(J1-J2) == 0:
+            c = 3.182192647373821
+        elif abs(J1-J2) == 1:
+            c = 4.478602220001236
+        else:
+            raise Exception("Ckech J1 and J2 values!") 
+
+        return a*b*c
+    
     def GetHPSTransitionStrength(self,J,F1,F2):# F1->F2 transition S_FF' factor in Steck
             if J==0.5: # value for D1 line
                 if F2==4:
